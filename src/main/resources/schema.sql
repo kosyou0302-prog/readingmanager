@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS author(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(20),
+    birth DATE NOT NULL,
+    death DATE
+);
+
+CREATE TABLE IF NOT EXISTS work(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    author_id BIGINT AUTO_INCREMENT,
+    title VARCHAR(30) NOT NULL,
+    published DATE NOT NULL,
+    FOREIGN KEY(author_id) REFERENCES author(id)
+);
+
+CREATE TABLE IF NOT EXISTS readlog(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    work_id BIGINT AUTO_INCREMENT,
+    finished_date DATE NOT NULL,
+    memo VARCHAR(255),
+    rating INTEGER,
+    FOREIGN KEY(work_id) REFERENCES work(id)
+);

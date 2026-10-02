@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"  rel="stylesheet">
+  <title th:taxt="${title}"></title>
+</head>
+<body>
+
+  <div class="container mt-4">
+    <h1 class="display-4 mb-4" th:text="${title}"></h1>
+    <table class="table table-striped table-bordered align-middle text-center">
+      <thead>
+        <tr>
+          <th>作品名</th>
+          <th>著者名</th>
+          <th>読了日</th>
+          <th>メモ</th>
+          <th>評価</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr th:each="item :${data}">
+          <td></td>
+          <td th:taxt="${item.name}"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <form th:action="@{/rdedit/{id}(id=${id})}" method="get" class="d-inline">
+              <input type="hidden" th:value="id">
+              <button type="submit">修正</button>
+            </form>
+            <form th:action="@{/rddelete}" method="get" class="d-inline">
+              <input type="hidden">
+              <button type="submit">削除</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container mt-4">
+    <h2 th:text="${add}"></h1>
+
+    <form th:action="@{/index}" method="post">
+      <label for=""></label>
+    </form>
+  </div>
+</body>
+</html>
