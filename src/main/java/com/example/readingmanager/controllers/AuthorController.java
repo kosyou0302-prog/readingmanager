@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.readingmanager.entities.Author;
 import com.example.readingmanager.entities.ReadingLog;
+import com.example.readingmanager.entities.Work;
 import com.example.readingmanager.repositories.AuthorRepository;
 import com.example.readingmanager.repositories.ReadingLogRepository;
 import com.example.readingmanager.repositories.WorkRepository;
@@ -26,25 +27,58 @@ public class AuthorController {
     @Autowired ReadingLogRepository readingLogRepository;
     @Autowired WorkRepository workrRepository;
 
+    // ホーム画面
     @GetMapping("/readingMng")
     public ModelAndView readingMng(@ModelAttribute("formModel") ReadingLog readingLog, ModelAndView mav) {
-        mav.setViewName("/redinghtml/index");
+        // 読書記録
+        mav.setViewName("redinghtml/index");
         mav.addObject("title", "読書記録");
-        List<Author> list = authorRepository.findAll();
+        List<ReadingLog> list = readingLogRepository.findAll();
         mav.addObject("data", list);
+        // 読了登録
+        mav.addObject("add","新しい読書記録を追加");
+        List<Work> worklist = workrRepository.findAll();
+        mav.addObject("wklist",worklist);
+        // 補助機能
+        mav.addObject("Assistance", "補助機能");
         return mav;
     }
     @PostMapping("/readingMng")
     @Transactional
-    public ModelAndView form(@ModelAttribute("formModel") @Validated ReadingLog readingLog, BindingResult result, ModelAndView mav) {
+    public ModelAndView form(@ModelAttribute @Validated ReadingLog readingLog, BindingResult result, ModelAndView mav) {
         ModelAndView res = null;
-        System.out.println(result.getFieldErrors());
-        if (!result.hasErrors()) {
+        System.out.println(result.getFieldError());
+        if (result.hasErrors()) {
             readingLogRepository.saveAndFlush(readingLog);
-            res = mav;
+            res = new ModelAndView("redirect:/readingMng");
         } else {
-            
+            mav.setViewName("redinghtml/index");
+            Iterable<ReadingLog> list = readingLogRepository.findAll();
+            mav.addObject("datalist", list);
+            res = mav;
         }
         return res;
     }
+    // 更新---------------------------------------------------------------------------------------------------------
+
+
+    // 削除---------------------------------------------------------------------------------------------------------
+
+
+    // 著者追加---------------------------------------------------------------------------------------------------------
+    @GetMapping("/addAuthor")
+    public ModelAndView addAuthor(@ModelAttribute("formModel") Author author ,ModelAndView mav) {
+        mav.setViewName("redinghtml/rdauthor");
+        mav.addObject("title", "著者追加");
+        return mav;
+    }
+    @PostMapping("/addAuthor")
+    @Transactional
+    public ModelAndView add(@ModelAttribute Author author, ModelAndView mav) {
+        authorRepository.saveAndFlush(author);
+        return mav;
+    }
+
+    // 作品検索---------------------------------------------------------------------------------------------------------
+
 }

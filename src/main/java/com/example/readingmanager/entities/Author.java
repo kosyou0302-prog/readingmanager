@@ -2,6 +2,8 @@ package com.example.readingmanager.entities;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,10 +30,12 @@ public class Author {
     private String name;
 
     @Column
-    @Past
+    @Past(message = "過去の日付にしてください")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birth;
 
     @Column
-    @Past
+    @Past(message = "過去の日付にしてください")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate death;
 }
