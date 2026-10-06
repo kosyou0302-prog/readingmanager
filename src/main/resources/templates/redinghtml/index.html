@@ -32,11 +32,11 @@
           <td th:text="${item.rating}"></td>
           <td>
             <form th:action="@{/rdedit/{id}(id=${id})}" method="get" class="d-inline">
-              <input type="hidden" th:value="id">
+              <input type="hidden" name="id" th:value="id">
               <button type="submit">修正</button>
             </form>
-            <form th:action="@{/rddelete}" method="get" class="d-inline">
-              <input type="hidden">
+            <form th:action="@{/deletelog/{id}(id=${item.id})}" method="get" class="d-inline">
+              <input type="hidden" name="id" th:value="${item.id}">
               <button type="submit">削除</button>
             </form>
           </td>

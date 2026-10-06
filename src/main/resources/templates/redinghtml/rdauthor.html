@@ -14,17 +14,17 @@
 
     <div>
       <label for="name" class="form-label me-3 mb-0">著者名：</label>
-      <input type="text" th:field="*{name}">
+      <input type="text" class="form-control" th:field="*{name}">
     </div>
 
     <div>
-      <label for="birth">生年月日：</label>
-      <input type="date" th:field="*{birth}">
+      <label for="birth" class="form-label">生年月日：</label>
+      <input type="date" class="form-control" th:field="*{birth}">
     </div>
 
     <div>
-      <label for="death">没年月日：</label>
-      <input type="date" th:field="*{death}">
+      <label for="death" class="form-label">没年月日：</label>
+      <input type="date" class="form-control" th:field="*{death}">
     </div>
     <button class="mt-2 mb-2" type="submit">登録</button>
   </form>

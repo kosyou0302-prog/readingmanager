@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"  rel="stylesheet">
+  <style>.err {color:red}</style>
+  <title th:text="${title}"></title>
+</head>
+<body  class="container mt-4">
+  <h2 th:text="${title}"></h2>
+
+  <form th:action="@{/deletelog}" method="post" th:object="${formModel}">
+    <input type="hidden" th:field="*{id}">
+
+    <ul>
+      <li>作品名： <span th:text="*{work.title}"></span></li>
+      <li>著者名： <span th:text="*{work.author.name}"></span></li>
+      <li>読了日： <span th:text="*{finishedDate}"></span></li>
+      <li>メモ： <span th:text="*{memo}"></span></li>
+      <li>評価： <span th:text="*{rating}"></span></li>
+    </ul>
+    <button class="mt-2 mb-2" type="submit">削除</button>
+  </form>
+
+  <form th:action="@{/readingMng}" method="get" class="d-inline">
+    <button type="submit" class="btn btn-secondary">戻る</button>
+  </form>
+
+</body>
+</html>
