@@ -28,7 +28,7 @@ public class ReadingLogController {
 
     @Autowired AuthorRepository authorRepository;
     @Autowired ReadingLogRepository readingLogRepository;
-    @Autowired WorkRepository workrRepository;
+    @Autowired WorkRepository workRepository;
 
     // ホーム画面
     @GetMapping("/readingMng")
@@ -40,7 +40,7 @@ public class ReadingLogController {
         mav.addObject("data", list);
         // 読了登録
         mav.addObject("add","新しい読書記録を追加");
-        List<Work> worklist = workrRepository.findAll();
+        List<Work> worklist = workRepository.findAll();
         mav.addObject("wklist",worklist);
         // 補助機能
         mav.addObject("Assistance", "補助機能");
@@ -57,7 +57,7 @@ public class ReadingLogController {
             mav.addObject("title", "読書記録");
             mav.addObject("data", readingLogRepository.findAll());
             mav.addObject("add", "新しい読書記録を追加");
-            mav.addObject("wklist", workrRepository.findAll());
+            mav.addObject("wklist", workRepository.findAll());
             mav.addObject("Assistance", "補助機能");
             return mav;
         }
@@ -66,7 +66,31 @@ public class ReadingLogController {
         return new ModelAndView("redirect:/readingMng");
     }
     // 更新---------------------------------------------------------------------------------------------------------
+    @GetMapping("/edit/{id}")
+    public ModelAndView editForm(@ModelAttribute("formModel") ReadingLog readingLog, @PathVariable Long id, ModelAndView mav) {
+        mav.setViewName("redinghtml/rdedit");
+        mav.addObject("title", "読了記録更新");
+        List<Work> worklist = workRepository.findAll();
+        mav.addObject("wklist",worklist);
+        Optional<ReadingLog> data = readingLogRepository.findById(id);
+        mav.addObject("formModel", data.get());
+        return mav;
+    }
+    @PostMapping("/edit")
+    @Transactional
+    public ModelAndView edit(@ModelAttribute("formModel") @Validated ReadingLog readingLog, BindingResult result, ModelAndView mav) {
+        System.out.println(result.getFieldError());
 
+        if(result.hasErrors()) {
+            // エラーがある場合
+            mav.setViewName("redinghtml/rdedit");
+            mav.addObject("title", "読了記録更新");
+            mav.addObject("wklist", workRepository.findAll());
+            return mav;
+        }
+        readingLogRepository.saveAndFlush(readingLog);
+        return new ModelAndView("redirect:/readingMng");
+    }
 
     // 削除---------------------------------------------------------------------------------------------------------
     @GetMapping("/deletelog/{id}")

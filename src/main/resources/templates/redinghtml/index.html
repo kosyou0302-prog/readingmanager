@@ -31,8 +31,8 @@
           <td th:text="${item.memo}"></td>
           <td th:text="${item.rating}"></td>
           <td>
-            <form th:action="@{/rdedit/{id}(id=${id})}" method="get" class="d-inline">
-              <input type="hidden" name="id" th:value="id">
+            <form th:action="@{/edit/{id}(id=${item.id})}" method="get" class="d-inline">
+              <input type="hidden" name="id" th:value="${item.id}">
               <button type="submit">修正</button>
             </form>
             <form th:action="@{/deletelog/{id}(id=${item.id})}" method="get" class="d-inline">
@@ -91,7 +91,7 @@
     <form th:action="@{/addAuthor}" method="get" class="d-inline">
       <button type="submit">著者追加</button>
     </form>
-    <form th:action="@{/rdauthor}" method="get" class="d-inline">
+    <form th:action="@{/searchWork}" method="get" class="d-inline">
       <button type="submit">作品検索</button>
     </form>
   </div>
