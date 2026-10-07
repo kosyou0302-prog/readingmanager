@@ -24,19 +24,19 @@
       </thead>
 
       <tbody>
-        <tr th:each="item :${data}">
-          <td th:text="${item.work.title}"></td>
-          <td th:text="${item.work.author.name}"></td>
-          <td th:text="${item.finishedDate}"></td>
-          <td th:text="${item.memo}"></td>
-          <td th:text="${item.rating}"></td>
+        <tr th:each="log : ${recentLogs}">
+          <td th:text="${log.work.title}"></td>
+          <td th:text="${log.work.author.name}"></td>
+          <td th:text="${log.finishedDate}"></td>
+      <td th:text="${log.memo}"></td>
+          <td th:text="${log.rating}"></td>
           <td>
-            <form th:action="@{/edit/{id}(id=${item.id})}" method="get" class="d-inline">
-              <input type="hidden" name="id" th:value="${item.id}">
+            <form th:action="@{/edit/{id}(id=${log.id})}" method="get" class="d-inline">
+              <input type="hidden" name="id" th:value="${log.id}">
               <button type="submit">修正</button>
             </form>
-            <form th:action="@{/deletelog/{id}(id=${item.id})}" method="get" class="d-inline">
-              <input type="hidden" name="id" th:value="${item.id}">
+            <form th:action="@{/deletelog/{id}(id=${log.id})}" method="get" class="d-inline">
+              <input type="hidden" name="id" th:value="${log.id}">
               <button type="submit">削除</button>
             </form>
           </td>

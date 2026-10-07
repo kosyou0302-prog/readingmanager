@@ -36,8 +36,8 @@ public class ReadingLogController {
         // 読書記録
         mav.setViewName("redinghtml/index");
         mav.addObject("title", "読書記録");
-        List<ReadingLog> list = readingLogRepository.findAll();
-        mav.addObject("data", list);
+        List<ReadingLog> recentLogs = readingLogRepository.findTop5ByOrderByFinishedDateDesc();
+        mav.addObject("recentLogs", recentLogs);
         // 読了登録
         mav.addObject("add","新しい読書記録を追加");
         List<Work> worklist = workRepository.findAll();

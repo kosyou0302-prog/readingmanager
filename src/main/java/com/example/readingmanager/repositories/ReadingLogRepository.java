@@ -12,4 +12,5 @@ import com.example.readingmanager.entities.ReadingLog;
 public interface ReadingLogRepository extends JpaRepository<ReadingLog, Long>,JpaSpecificationExecutor<ReadingLog> {
     List<ReadingLog> findByWork_Id(Long id);
     List<ReadingLog> findByWork_TitleContaining(String title);
+    List<ReadingLog> findTop5ByOrderByFinishedDateDesc();
 }
