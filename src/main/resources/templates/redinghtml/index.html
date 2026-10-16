@@ -28,7 +28,7 @@
           <td th:text="${log.work.title}"></td>
           <td th:text="${log.work.author.name}"></td>
           <td th:text="${log.finishedDate}"></td>
-      <td th:text="${log.memo}"></td>
+          <td th:text="${log.memo}"></td>
           <td th:text="${log.rating}"></td>
           <td>
             <form th:action="@{/edit/{id}(id=${log.id})}" method="get" class="d-inline">

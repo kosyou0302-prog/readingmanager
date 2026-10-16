@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS author(
 
 CREATE TABLE IF NOT EXISTS work(
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    author_id BIGINT AUTO_INCREMENT,
+    author_id BIGINT,
     title VARCHAR(30) NOT NULL,
     published DATE NOT NULL,
     FOREIGN KEY(author_id) REFERENCES author(id)
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS work(
 
 CREATE TABLE IF NOT EXISTS readlog(
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    work_id BIGINT AUTO_INCREMENT,
+    work_id BIGINT,
     finished_date DATE NOT NULL,
     memo VARCHAR(255),
     rating INTEGER,

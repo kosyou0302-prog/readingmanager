@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +34,16 @@ public class AuthorController {
     }
     @PostMapping("/addAuthor")
     @Transactional
-    public ModelAndView add(@ModelAttribute Author author, ModelAndView mav) {
+    public ModelAndView add(@ModelAttribute("formModel") @Validated Author author,BindingResult result, ModelAndView mav) {
+        System.out.println(result.getFieldError());
+
+        if(result.hasErrors()) {
+            // エラー
+            mav.setViewName("redinghtml/rdauthor");
+            mav.addObject("title", "著者追加");
+            return mav;
+        }
+        // エラーじゃない
         authorRepository.saveAndFlush(author);
         return new ModelAndView("redirect:/readingMng");
     }

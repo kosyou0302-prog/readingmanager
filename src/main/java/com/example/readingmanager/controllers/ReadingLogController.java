@@ -52,7 +52,7 @@ public class ReadingLogController {
         System.out.println(result.getFieldError());
 
         if (result.hasErrors()) {
-            // エラーがある場合
+            // エラー
             mav.setViewName("redinghtml/index");
             mav.addObject("title", "読書記録");
             mav.addObject("data", readingLogRepository.findAll());
@@ -61,7 +61,7 @@ public class ReadingLogController {
             mav.addObject("Assistance", "補助機能");
             return mav;
         }
-        // エラーがない場合
+        // エラーじゃない
         readingLogRepository.saveAndFlush(readingLog);
         return new ModelAndView("redirect:/readingMng");
     }
@@ -82,12 +82,13 @@ public class ReadingLogController {
         System.out.println(result.getFieldError());
 
         if(result.hasErrors()) {
-            // エラーがある場合
+            // エラー
             mav.setViewName("redinghtml/rdedit");
             mav.addObject("title", "読了記録更新");
             mav.addObject("wklist", workRepository.findAll());
             return mav;
         }
+        // エラーじゃない
         readingLogRepository.saveAndFlush(readingLog);
         return new ModelAndView("redirect:/readingMng");
     }

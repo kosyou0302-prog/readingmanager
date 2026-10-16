@@ -9,14 +9,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.readingmanager.dto.ReadingLogSearchDto;
 import com.example.readingmanager.entities.Author;
-import com.example.readingmanager.entities.ReadingLog;
 import com.example.readingmanager.entities.Work;
 import com.example.readingmanager.repositories.AuthorRepository;
 import com.example.readingmanager.repositories.ReadingLogRepository;
@@ -47,7 +44,7 @@ public class WorkController {
         System.out.println(result.getFieldError());
 
         if(result.hasErrors()) {
-            // エラーがある場合
+            // エラー
             mav.setViewName("redinghtml/rdsearch");
             mav.addObject("title", "作品検索");
             return mav;
